@@ -37,6 +37,21 @@ Only unit tests:
 clj -Atest -i :unit
 ```
 
+## Running benchmarks
+```
+clj -Abench
+```
+
+## Profiling
+`taoensso/tufte` is used to profile core `scramble?` function. To run profiler, simply:
+```
+(require '[taoensso.tufte :as tufte :refer (defnp p profiled profile)])
+(tufte/add-basic-println-handler! {})
+(profile
+       {}
+         (scramble/scramble? dict word))
+```
+To see profiling info on stdout.
 
 ## License
 

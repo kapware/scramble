@@ -1,32 +1,66 @@
 (ns scramble.core
   (:require [clojure.spec.alpha            :as s]
-            [clojure.test.check.generators :as gen]))
+            [clojure.test.check.generators :as gen]
+            [clojure.core.reducers         :as r]
+            [taoensso.tufte                :as tufte]))
 
 (defn char-range [start end]
   (map char (range (int start) (inc (int end)))))
 
 
+(defn gen-scramblie
+  "Returns a generator of a ::scramblie with given length"
+  [& n]
+  (gen/fmap
+   (fn [chars] (apply str (map char chars)))
+   (apply gen/vector (gen/elements (char-range \a \z)) n)))
+
+
 (s/def ::scramblie (s/with-gen
                      (s/and string?
                             #(re-matches #"[a-z]+" %))
-                     #(gen/fmap
-                       (fn [chars] (apply str (map char chars)))
-                       (gen/vector (gen/elements (char-range \a \z))))))
+                     #(gen-scramblie)))
 
-  
-(defn fmap [f m]
-  (into (empty m) (for [[k v] m] [k (f v)])))
 
+;; NOTE: this function does not perform better than regular version
+;;       even for large strings like 1M characters
+#_(defn pfrequencies
+  "Returns a map from distinct items in coll to the number of times
+  they appear, applying given function to each count. Paralell version."
+  [f coll]
+  (persistent!
+   (r/fold
+    (r/monoid #(merge-with + (persistent! %1) (persistent! %2)) (constantly (transient {})))
+    (fn [counts x]
+      (assoc! counts x (f (get counts x 0))))
+    coll))) 
+
+
+(defn ffrequencies
+  "Returns a map from distinct items in coll to the number of times
+  they appear, applying given function to each count. This is `clojure.core/frequencies`
+  version, but allows replacing regular `inc` function."
+  [f coll]
+  (persistent!
+   (reduce (fn [counts x]
+             (assoc! counts x (f (get counts x 0))))
+           (transient {}) coll)))
+
+(comment
+  (ffrequencies inc [:a :a :b :c :d :d :d]) 
+  )
 
 (defn scramble? [letters a-word]
-  (if (>= (count letters) (count a-word))
-    (not-any? neg?
-              (vals
-               (merge-with +
-                           (frequencies letters)
-                           (fmap (partial * -1)
-                                 (frequencies a-word)))))
-    false)) 
+  (tufte/p :total-scramble?
+           (if (>= (count letters) (count a-word))
+             (not-any? neg?
+                       (vals
+                        (merge-with +
+                                    (tufte/p :letter-freqs
+                                             (ffrequencies inc letters))
+                                    (tufte/p :word-freqs
+                                             (ffrequencies dec a-word)))))
+             false)))  
 
 
 (comment

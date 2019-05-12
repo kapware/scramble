@@ -42,7 +42,6 @@
 
 
 (t/deftest ^:unit scramble-detects-subanagrams
-  (t/testing "foo"
   (tc/checking "test scramble detects subanagrams" 1024
                [[word alphabet] (s/gen ::subanagram)]
-               (t/is (true? (sut/scramble? word alphabet))))))
+               (t/is (true? (sut/scramble? word alphabet)))))
