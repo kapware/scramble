@@ -1,5 +1,6 @@
 {:paths ["src"]
- :deps {org.clojure/test.check    {:mvn/version "0.9.0"}
+ :deps {org.clojure/clojure       {:mvn/version "1.10.0"}
+        org.clojure/test.check    {:mvn/version "0.9.0"}
         com.taoensso/tufte        {:mvn/version "2.0.1"}
         ;; NOTE: See issue: https://github.com/metosin/compojure-api/issues/393
         ;;       and a solution: https://github.com/cjohansen/compojure-api-tools-deps
@@ -10,13 +11,15 @@
         org.clojure/tools.logging {:mvn/version "0.4.1"}
         mount                     {:mvn/version "0.1.16"}}
  :aliases
- {:run  {:main-opts ["-m" "scramble.core"]}
-  :test {:extra-paths ["test"]
-         :extra-deps {com.cognitect/test-runner  {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                                                  :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}
-                      com.gfredericks/test.chuck {:mvn/version "0.2.9"}}
-         :main-opts ["-m" "cognitect.test-runner"]}
+ {:run   {:main-opts ["-m" "scramble.core"]}
+  :test  {:extra-paths ["test"]
+          :extra-deps {com.cognitect/test-runner  {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                                   :sha "209b64504cb3bd3b99ecfec7937b358a879f55c1"}
+                       com.gfredericks/test.chuck {:mvn/version "0.2.9"}}
+          :main-opts ["-m" "cognitect.test-runner"]}
   :check {:extra-deps {org.clojure/test.check {:mvn/version "0.9.0"}}}
   :bench {:extra-paths ["bench" "classes"]
           :extra-deps {jmh-clojure        {:mvn/version "0.2.1"}}
-          :main-opts ["-m" "bench.run"]}}}
+          :main-opts ["-m" "bench.run"]}
+  :jar   {:extra-deps {seancorfield/depstar {:mvn/version "0.2.1"}}
+          :main-opts ["-m" "hf.depstar.uberjar" "scramble.jar"]}}}

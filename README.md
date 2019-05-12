@@ -48,6 +48,15 @@ curl 'http://localhost:9999/api/v1/scramble?dict=bolton&word=notlob'
 This is service is not meant for production, but if you still want to deploy it, build a jar (or native image), follow one of following excellent howtos:
 https://github.com/clojure/tools.deps.alpha/wiki/Tools#build-tool-integration
 
+or, if you're lazy:
+```
+clj -Ajar
+```
+and:
+```
+java -cp scramble.jar clojure.main -m scramble.core
+```
+
 ## Running tests
 
 All:
