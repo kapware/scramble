@@ -1,7 +1,9 @@
 # Scramble
 
 > Mr. Praline: It's not a palindrome! The palindrome of "Bolton" would be "Notlob"!! It don't work!!
+
 > Owner: Well, what do you want?
+
 > Mr. Praline: I'm not prepared to pursue my line of inquiry any longer as I think this is getting too silly!
 
 source: http://montypython.50webs.com/scripts/Series_1/53.htm
@@ -11,7 +13,7 @@ This is a showcase clojure project. The objective is to show how to solve a simp
 By common dictionary definition:
 > anagram
 > noun [ C ] US ​  /ˈæn·əˌɡræm/
-​>
+>
 > a word or phrase made by using the letters of another word or phrase in a different order:
 > “Neat” is an anagram of “a net.”
 
