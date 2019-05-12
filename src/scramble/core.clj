@@ -1,5 +1,6 @@
-(ns core
-  (:require [clojure.spec.alpha :as s]))
+(ns scramble.core
+  (:require [clojure.spec.alpha            :as s]
+            [clojure.test.check.generators :as gen]))
 
 (defn char-range [start end]
   (map char (range (int start) (inc (int end)))))
@@ -7,7 +8,7 @@
 
 (s/def ::scramblie (s/with-gen
                      (s/and string?
-                            #(re-matches #"[a-z]*" %))
+                            #(re-matches #"[a-z]+" %))
                      #(gen/fmap
                        (fn [chars] (apply str (map char chars)))
                        (gen/vector (gen/elements (char-range \a \z))))))
@@ -92,6 +93,7 @@
   ;; solution:
   ((fnil shuffle []) nil) ;; => happy :)
 
+  ;; Expected empty:
   (filter (fn [[_ _ result]] (false? result))
           (map (fn [[letters word]]
                  [letters word (scramble? letters word)])

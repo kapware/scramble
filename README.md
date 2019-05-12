@@ -25,6 +25,19 @@ The app contains a function `scramble?` that takes words (with only lower case l
 The function will be exposed as a web service with a simple ui that would connect to the exposed api.
 
 
+## Running tests
+
+All:
+```
+clj -Atest
+```
+Only unit tests:
+
+```
+clj -Atest -i :unit
+```
+
+
 ## License
 
 Copyright © 2019 kapware.com
