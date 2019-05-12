@@ -1,6 +1,6 @@
 (ns core-test
   (:require [clojure.test                            :as t]
-            [scramble.core                           :as sut]
+            [scramble.scramble                       :as sut]
             [clojure.spec.alpha                      :as s]
             [com.gfredericks.test.chuck.clojure-test :as tc]
             [clojure.test.check.generators           :as gen]))

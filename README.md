@@ -1,5 +1,11 @@
 # Scramble
 
+> Mr. Praline: It's not a palindrome! The palindrome of "Bolton" would be "Notlob"!! It don't work!!
+> Owner: Well, what do you want?
+> Mr. Praline: I'm not prepared to pursue my line of inquiry any longer as I think this is getting too silly!
+
+source: http://montypython.50webs.com/scripts/Series_1/53.htm
+
 This is a showcase clojure project. The objective is to show how to solve a simple anagram problem, verifying if two given strings are anagrams of each other.
 
 By common dictionary definition:
@@ -24,6 +30,23 @@ Note, that order is significant and repetitions of letrters can occur within bot
 The app contains a function `scramble?` that takes words (with only lower case laters `a`-`z`; specificaly no special characters, digits or punctuation marks will be included).
 The function will be exposed as a web service with a simple ui that would connect to the exposed api.
 
+## Prerequisites
+`clj` installed: https://clojure.org/guides/getting_started
+
+## Running locally
+After:
+```
+clj -Arun
+```
+the webservice should start responding on `http://localhost:9999`.
+There is built in swagger-ui included, but to get a quick response, you might want to:
+```
+curl 'http://localhost:9999/api/v1/scramble?dict=bolton&word=notlob'
+```
+
+## Deploying
+This is service is not meant for production, but if you still want to deploy it, build a jar (or native image), follow one of following excellent howtos:
+https://github.com/clojure/tools.deps.alpha/wiki/Tools#build-tool-integration
 
 ## Running tests
 
@@ -52,6 +75,7 @@ clj -Abench
          (scramble/scramble? dict word))
 ```
 To see profiling info on stdout.
+
 
 ## License
 
