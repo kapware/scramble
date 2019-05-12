@@ -1,2 +1,5 @@
 .cpcache
 classes
+pom.xml
+scramble.jar
+target/
