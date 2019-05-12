@@ -9,7 +9,8 @@
                                    :exclusions [frankiesardo/linked]}
         http-kit                  {:mvn/version "2.3.0"}
         org.clojure/tools.logging {:mvn/version "0.4.1"}
-        mount                     {:mvn/version "0.1.16"}}
+        mount                     {:mvn/version "0.1.16"}
+        ring-cors                 {:mvn/version "0.1.13"}}
  :aliases
  {:run   {:main-opts ["-m" "scramble.core"]}
   :test  {:extra-paths ["test"]

@@ -5,7 +5,8 @@
             [mount.core                :as mount :refer [defstate]]
             [org.httpkit.server        :as httpkit]
             [compojure.route           :as route]
-            [compojure.api.sweet       :as api :refer [api context defroutes resource]]))
+            [compojure.api.sweet       :as api :refer [api context defroutes resource]]
+            [ring.middleware.cors      :refer [wrap-cors]]))
 
 
 (def handler
@@ -26,7 +27,12 @@
 (defn start-webservice []
   (let [port 9999] ;; TODO: configure from env
     (log/info (str "Starting web, port :" port))
-    (httpkit/run-server handler {:port port})))
+    (httpkit/run-server (-> handler
+                            (wrap-cors
+                             ;; Allow figwheel for now, this needs to be configurable
+                             :access-control-allow-origin [#"http://0.0.0.0:3449"]
+                             :access-control-allow-methods [:get]))
+                        {:port port})))
 
 
 (defstate webservice 
