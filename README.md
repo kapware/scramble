@@ -1,9 +1,9 @@
 # Scramble
 
 > Mr. Praline: It's not a palindrome! The palindrome of "Bolton" would be "Notlob"!! It don't work!!
-
+>
 > Owner: Well, what do you want?
-
+>
 > Mr. Praline: I'm not prepared to pursue my line of inquiry any longer as I think this is getting too silly!
 
 source: http://montypython.50webs.com/scripts/Series_1/53.htm
